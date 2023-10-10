@@ -1,4 +1,4 @@
-.PHONY: all build client components docs format install lint release server start test version write
+.PHONY: all build client dist docs format install lint preview release server start test version
 
 
 VERSION := $(shell node -p -e "require('./package.json').version")
@@ -8,16 +8,17 @@ all:
 	@grep '^\.PHONY' Makefile | cut -d' ' -f2- | tr ' ' '\n'
 
 build:
+	hatch run build
 	npm run build
 
 client:
 	npm run start
 
-components:
-	npm run component
+dist:
+	npm run dist
 
 docs:
-	hatch run docs
+	cd portal && npm start
 
 format:
 	hatch run format
@@ -25,17 +26,21 @@ format:
 
 install:
 	npm install
+	cd portal && npm install
 
 lint:
 	hatch run lint
 	npm run lint
 
+preview:
+	npm run preview
+
 release:
 	git checkout main && git pull origin && git fetch -p
 	@git log --pretty=format:"%C(yellow)%h%Creset %s%Cgreen%d" --reverse -20
 	@echo "\nReleasing v$(VERSION) in 10 seconds. Press <CTRL+C> to abort\n" && sleep 10
-	npm test && git commit -a -m 'v$(VERSION)' && git tag -a v$(VERSION) -m 'v$(VERSION)'
-	git push --follow-tags
+	make test && git commit -a -m 'v$(VERSION)' && git tag -a v$(VERSION) -m 'v$(VERSION)'
+	git push --follow-tags --no-verify
 
 server:
 	hatch run start
@@ -49,6 +54,3 @@ test:
 
 version:
 	@echo $(VERSION)
-
-write:
-	hatch run write
