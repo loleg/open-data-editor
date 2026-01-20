@@ -16,15 +16,13 @@ please visit: `https://okfn.org/en/projects/open-data-editor/ <https://okfn.org/
 
    documentation/welcome.md
    documentation/uploading-data.md
-   documentation/creating-folders.md
-   documentation/exploring-tables.md
    documentation/explore-table-errors.md
    documentation/editing-errors-in-tables.md
    documentation/deleting-files-folders.md
    documentation/table-error-list.md
    documentation/ai-integration.md
    documentation/explore-edit-metadata.md
-   documentation/publishing-data.md
+   documentation/export-data.md
    documentation/faq.md
    documentation/similar-tools.md
 

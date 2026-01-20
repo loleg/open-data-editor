@@ -11,53 +11,71 @@ We are using 3.13. To start working on the project you need the following depend
 - Python 3.13
 - python3.13-dev (For PyInstaller)
 
+We are using [uv](https://docs.astral.sh/uv/) as a package manager so make sure you have it installed.
+
 ## Environment
 
-As common practice with all python project, you should create a Virtual Environment (using your favorite tool!) to install all the requirements.
-
-If using Python's default virtual env you can execute:
+Use `uv` to create a virtualenv and activate it:
 
 ```bash
-python -m venv venv
+uv sync
 source venv/bin/activate
 ```
 
-## Makefile
-
-The project provides a `Makefile` with some usefull commands.
+## Start the application
 
 ```bash
-make help
+uv run ode
 ```
 
-:::{note}
-All make commands that executes python commands (like `make start` or `make install`) requires a manually activated virtualenv to run.
-:::
-
-## Installation
-
-To start working on the project install the dependencies:
+or
 
 ```bash
-make install
+# With the virtual environment activated
+python src/ode/main.py
 ```
 
-> Make install will also cd into the `portal` folder and install all the dependencies for the astro project.
-
-## Codebase
-
-To work on the application:
+## Running tests
 
 ```bash
-make start
+uv run pytest tests/
 ```
+
+or
+
+```bash
+# With the virtual environment activated
+pytest tests/
+```
+
+## Building the application
+
+```bash
+uv run build.py build
+```
+
+or
+
+```bash
+# With the virtual environment activated
+python build.py build
+```
+
+This will create a distributable file for the application in the `dist/` folder.
 
 ## Documentation
 
 Documentation is written with [Sphinx](https://www.sphinx-doc.org/en/master/) (in the `docs` directory). The source files are in the `docs/source/` directory. To locally build the documentation you can execute:
 
 ```bash
-make docs
+uv run build.py docs
+```
+
+or
+
+```bash
+# With the virtual environment activated
+python build.py docs
 ```
 
 It will be automatically published on CloudFlare when merged to the `main` branch with previews available for pull requests.
@@ -68,7 +86,7 @@ To make a release follow the following checklist:
  - Check with the PO that `main` branch is code complete.
  - Check that the distributables built on main are working by installing them in your machine.
    - Sometimes PyInstaller cannot compile new dependencies and the application will fail at runtime.
- - Create a new PR bumping the version of the application (inside `ode/__init__.py` file.) and merge it to main.
+ - Create a new PR bumping the version of the application in the `pyproject.toml` file and merge it to main.
  - Create a New Github Release with a new tag matching the new version number of the application.
  - Fill in the Release notes.
  - Create the Release.
