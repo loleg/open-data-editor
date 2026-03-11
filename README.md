@@ -42,3 +42,15 @@ For previous releases, you can download them from Github [RELEASE](https://githu
 * For **MacOS**:Download the most recent **DMG** file.
 * For **Linux**:Download the most recent **AppImage** or **DEB** file.
 
+# Environment Variables
+
+The Open Data Editor supports the following environment variables to customize AI model configuration:
+
+| Variable | Description |
+|----------|-------------|
+| `ODE_AI_MODEL_NAME` | The display name of the AI model |
+| `ODE_AI_MODEL_URL` | The download URL for the AI model GGUF file |
+| `ODE_AI_MODEL_FILENAME` | The filename to save the model as |
+
+All three variables must be set together to override the default model. If not set, the default Apertus 8B model is used.
+
